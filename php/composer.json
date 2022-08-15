@@ -1,0 +1,12 @@
+{
+  "name": "hemit/potter",
+  "description": "Just a little kata",
+  "autoload": {
+    "classmap": [
+      "src/"
+    ]
+  },
+  "require": {
+    "phpunit/phpunit": "9.5.10"
+  }
+}
