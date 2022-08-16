@@ -1,5 +1,5 @@
 {
-  "name": "hemit/potter",
+  "name": "hemit/kata-seed",
   "description": "Just a little kata",
   "autoload": {
     "classmap": [

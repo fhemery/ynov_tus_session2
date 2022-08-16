@@ -1,5 +1,5 @@
 {
-  "name": "currency-conversion-kata",
+  "name": "kata-seed",
   "version": "1.0.0",
   "description": "",
   "main": "main.ts",
@@ -16,14 +16,6 @@
     "@typescript-eslint/parser": "^5.33.0",
     "@typescript-eslint/eslint-plugin" : "^5.33.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fhemery/currency-conversion-test-doubles-kata.git"
-  },
   "author": "Frédéric HEMERY",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/fhemery/currency-conversion-test-doubles-kata/issues"
-  },
-  "homepage": "https://github.com/fhemery/currency-conversion-test-doubles-kata#readme"
+  "license": "ISC"
 }
