@@ -1,8 +1,8 @@
+# Starter seed: Dotnet 6 - XUnit - Moq
 
-
-# .NET starter : dotnetcore + XUnit
-
-Skeleton to start the Potter Kata in DOTNET : https://codingdojo.org/kata/Potter/
+Uses: 
+* __XUnit__ as the unit test framework
+* __Moq__ as the mocking framework
 
 ## Installing
 
