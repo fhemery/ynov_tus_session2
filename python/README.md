@@ -21,3 +21,7 @@ At first launch, one test should pass, the other should fail
 ## Getting coverage
 
 > pytest --cov=src
+
+## Launch mutation testing
+
+> mutatest -s src
