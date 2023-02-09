@@ -3,10 +3,13 @@
   "description": "Just a little kata",
   "autoload": {
     "classmap": [
-      "src/"
+      "src/",
+      "tests/"
     ]
   },
   "require": {
-    "phpunit/phpunit": "9.5.10"
+    "phpunit/phpunit": "9.5.10",
+    "myclabs/php-enum": "^1.7",
+    "php-ds/php-ds": "^1.2"
   }
 }
