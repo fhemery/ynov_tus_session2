@@ -4,6 +4,7 @@ describe("TennisScore", function() {
   let tennisScore: TennisScore;
 
   beforeEach(() => {
+    // ARRANGE
     tennisScore = new TennisScore();
   })
 
@@ -18,9 +19,14 @@ describe("TennisScore", function() {
   });
 
   it("should return 30-0 if player1 scores twice", function() {
+    // ARRANGE
     tennisScore.player1Scores().player1Scores();
 
-    expect(tennisScore.getScore()).toBe('30 - 0');
+    // ACT
+    const score = tennisScore.getScore();
+
+    // ASSERT
+    expect(score).toBe('30 - 0');
   });
 
   it("should return Adv to player 2 if player2 scores at 40 All", function() {
