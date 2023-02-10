@@ -18,4 +18,4 @@ class Currency(Enum):
             return CurrencyIsoCode.GBP
         elif self == Currency.Yen:
             return CurrencyIsoCode.JPY
-        pass
+        raise "Unknown currency " + self.__str__()

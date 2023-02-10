@@ -7,15 +7,16 @@ from src.currency.external.currency_iso_code import CurrencyIsoCode
 from src.currency.money import Money
 
 
-def test_converter():
+def test_simple_conversion():
     rate_api = ConversionRateApi()
     rate_api.get_rate = MagicMock(return_value=2)
     converter = CurrencyConverter(rate_api)
 
-    result = converter.sum(Currency.Dollar, Money(1.0, Currency.Euro))
+    result = converter.sum(Currency.Dollar, Money(1.0, Currency.Pound))
 
     assert result.amount == 2.0
     assert result.currency == Currency.Dollar
+    rate_api.get_rate.assert_called_once_with(CurrencyIsoCode.GBP, CurrencyIsoCode.USD)
 
 
 def test_when_twice_currency_does_not_call_api_twice():
@@ -38,3 +39,4 @@ def test_when_two_currencies_owned():
     result = converter.sum(Currency.Dollar, Money(1.0, Currency.Euro), Money(200.0, Currency.Yen))
 
     assert result.amount == 4.0
+    rate_api.get_rate.assert_called_with(CurrencyIsoCode.JPY, CurrencyIsoCode.USD)
