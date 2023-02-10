@@ -1,6 +1,8 @@
-import external.conversionRateApi.IConversionRateApi
-import model.Currency
-import model.Money
+package org.kata.currency
+
+import org.kata.currency.external.conversionRateApi.IConversionRateApi
+import org.kata.currency.model.Currency
+import org.kata.currency.model.Money
 import java.util.*
 
 class CurrencyConverter(private val rateApi: IConversionRateApi) {

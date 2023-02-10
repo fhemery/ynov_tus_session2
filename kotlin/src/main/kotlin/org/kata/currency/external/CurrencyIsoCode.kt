@@ -1,4 +1,4 @@
-package external
+package org.kata.currency.external
 
 enum class CurrencyIsoCode(val value: String) {
     USD("USD"),

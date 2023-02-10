@@ -1,6 +1,8 @@
-import external.CurrencyIsoCode
-import model.Currency
-import model.Money
+package org.kata.currency
+
+import org.kata.currency.external.CurrencyIsoCode
+import org.kata.currency.model.Currency
+import org.kata.currency.model.Money
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 

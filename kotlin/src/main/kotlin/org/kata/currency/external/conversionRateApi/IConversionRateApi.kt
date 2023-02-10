@@ -1,6 +1,6 @@
-package external.conversionRateApi
+package org.kata.currency.external.conversionRateApi
 
-import external.CurrencyIsoCode
+import org.kata.currency.external.CurrencyIsoCode
 
 interface IConversionRateApi {
     fun getRate(source: CurrencyIsoCode, target: CurrencyIsoCode): Double

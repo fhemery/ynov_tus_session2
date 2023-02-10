@@ -1,5 +1,7 @@
-import external.CurrencyIsoCode
-import external.conversionRateApi.IConversionRateApi
+package org.kata.currency
+
+import org.kata.currency.external.CurrencyIsoCode
+import org.kata.currency.external.conversionRateApi.IConversionRateApi
 
 class ConversionRateMockApi: IConversionRateApi {
     private val rates = HashMap<CurrencyIsoCode, HashMap<CurrencyIsoCode,Double>>()
