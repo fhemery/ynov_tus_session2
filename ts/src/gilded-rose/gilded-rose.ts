@@ -10,6 +10,92 @@ export class Item {
   }
 }
 
+export enum SpecificItems {
+  AgedBrie = "Aged Brie",
+  BackstagePass = "Backstage passes to a TAFKAL80ETC concert",
+  Sulfuras = "Sulfuras, Hand of Ragnaros"
+}
+
+const ITEM_MAX_QUALITY = 50;
+
+interface ItemUpdater {
+  updateSellIn(item: Item): void;
+
+  updateQuality(item: Item): void;
+}
+
+class SulfurasItemUpdater implements ItemUpdater {
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  updateQuality(): void {
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  updateSellIn(): void {
+  }
+}
+
+class DefaultItemUpdater implements ItemUpdater {
+  updateQuality(item: Item): void {
+    if (item.quality > 0) {
+      item.quality = item.quality - 1;
+    }
+
+    if (item.sellIn < 0) {
+      if (item.quality > 0) {
+        item.quality = item.quality - 1;
+      }
+    }
+  }
+
+  updateSellIn(item: Item): void {
+    item.sellIn = item.sellIn - 1;
+  }
+
+}
+
+class AgedBrieItemUpdater implements ItemUpdater {
+  updateQuality(item: Item): void {
+    if (item.quality < ITEM_MAX_QUALITY) {
+      item.quality = item.quality + 1;
+    }
+    if (item.sellIn < 0) {
+      if (item.quality < ITEM_MAX_QUALITY) {
+        item.quality = item.quality + 1;
+      }
+    }
+  }
+
+  updateSellIn(item: Item): void {
+    item.sellIn = item.sellIn - 1;
+  }
+}
+
+class BackstagePassUpdater implements ItemUpdater {
+  updateQuality(item: Item): void {
+    if (item.quality < ITEM_MAX_QUALITY) {
+      item.quality = item.quality + 1;
+      if (item.sellIn < 10) {
+        if (item.quality < ITEM_MAX_QUALITY) {
+          item.quality = item.quality + 1;
+        }
+      }
+      if (item.sellIn < 5) {
+        if (item.quality < ITEM_MAX_QUALITY) {
+          item.quality = item.quality + 1;
+        }
+      }
+    }
+
+    if (item.sellIn < 0) {
+      item.quality = item.quality - item.quality;
+    }
+  }
+
+  updateSellIn(item: Item): void {
+    item.sellIn = item.sellIn - 1;
+  }
+}
+
 export class GildedRose {
   items: Array<Item>;
 
@@ -18,50 +104,25 @@ export class GildedRose {
   }
 
   updateQuality() {
-    for (let i = 0; i < this.items.length; i++) {
-      if (this.items[i].name != 'Aged Brie' && this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-        if (this.items[i].quality > 0) {
-          if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-            this.items[i].quality = this.items[i].quality - 1
-          }
-        }
-      } else {
-        if (this.items[i].quality < 50) {
-          this.items[i].quality = this.items[i].quality + 1
-          if (this.items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
-            if (this.items[i].sellIn < 11) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1
-              }
-            }
-            if (this.items[i].sellIn < 6) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1
-              }
-            }
-          }
-        }
+    for (const item of this.items) {
+      let updater: ItemUpdater | null = null;
+      switch (item.name) {
+        case SpecificItems.Sulfuras:
+          updater = new SulfurasItemUpdater();
+          break;
+        case SpecificItems.AgedBrie:
+          updater = new AgedBrieItemUpdater();
+          break;
+        case SpecificItems.BackstagePass:
+          updater = new BackstagePassUpdater();
+          break;
+        default:
+          updater = new DefaultItemUpdater();
+          break;
       }
-      if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-        this.items[i].sellIn = this.items[i].sellIn - 1;
-      }
-      if (this.items[i].sellIn < 0) {
-        if (this.items[i].name != 'Aged Brie') {
-          if (this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-            if (this.items[i].quality > 0) {
-              if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-                this.items[i].quality = this.items[i].quality - 1
-              }
-            }
-          } else {
-            this.items[i].quality = this.items[i].quality - this.items[i].quality
-          }
-        } else {
-          if (this.items[i].quality < 50) {
-            this.items[i].quality = this.items[i].quality + 1
-          }
-        }
-      }
+
+      updater.updateSellIn(item);
+      updater.updateQuality(item);
     }
 
     return this.items;
