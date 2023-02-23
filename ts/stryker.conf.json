@@ -8,6 +8,7 @@
     "progress"
   ],
   "testRunner": "jest",
+  "concurrency": 4,
   "coverageAnalysis": "perTest",
   "tsconfigFile": "tsconfig.json"
 }
