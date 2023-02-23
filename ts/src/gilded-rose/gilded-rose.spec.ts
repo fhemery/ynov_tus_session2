@@ -108,6 +108,34 @@ describe("Gilded rose", function() {
 
   });
 
+  describe("when item is Conjured", function() {
+    const conjured = "Conjured";
+    it('should decrease sellIn by one', () => {
+      const item = updateItem(new Item(conjured, 10, 15));
+      expect(item.sellIn).toBe(9);
+    })
+
+    it('should decay twice as fast', () => {
+      const item = updateItem(new Item(conjured, 10, 15));
+      expect(item.quality).toBe(13);
+    })
+
+    it("should not further decrease quality when item quality is 0", function() {
+      const item = updateItem(new Item(conjured, 10, 0));
+      expect(item.quality).toBe(0);
+    });
+
+    it("should not further decrease quality when item quality is below 0", function() {
+      const item = updateItem(new Item(conjured, 10, -2));
+      expect(item.quality).toBe(-2);
+    });
+
+    it("should decrease sellIn quality twice as fast when item sellIn is 0 or below", function() {
+      const item = updateItem(new Item(conjured, 0, 10));
+      expect(item.quality).toBe(6);
+    });
+  });
+
   describe("when item is Backstage passes to a TAFKAL80ETC concert", function() {
     const backStagePass="Backstage passes to a TAFKAL80ETC concert";
 

@@ -13,7 +13,8 @@ export class Item {
 export enum SpecificItems {
   AgedBrie = "Aged Brie",
   BackstagePass = "Backstage passes to a TAFKAL80ETC concert",
-  Sulfuras = "Sulfuras, Hand of Ragnaros"
+  Sulfuras = "Sulfuras, Hand of Ragnaros",
+  Conjured = "Conjured",
 }
 
 const ITEM_MAX_QUALITY = 50;
@@ -49,6 +50,26 @@ class DefaultItemUpdater implements ItemUpdater {
 
   updateSellIn(item: Item): void {
     item.sellIn = item.sellIn - 1;
+  }
+
+}
+
+class ConjuredItemUpdater implements ItemUpdater {
+  updateQuality(item: Item): void {
+    if (item.quality < 0) {
+      return;
+    }
+    item.quality -=2;
+
+    if(item.sellIn < 0) {
+      item.quality -=2;
+    }
+
+    item.quality = Math.max(item.quality, 0);
+  }
+
+  updateSellIn(item: Item): void {
+    item.sellIn -= 1;
   }
 
 }
@@ -115,6 +136,9 @@ export class GildedRose {
           break;
         case SpecificItems.BackstagePass:
           updater = new BackstagePassUpdater();
+          break;
+        case SpecificItems.Conjured:
+          updater = new ConjuredItemUpdater();
           break;
         default:
           updater = new DefaultItemUpdater();
